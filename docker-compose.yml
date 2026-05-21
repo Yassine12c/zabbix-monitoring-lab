@@ -1,0 +1,59 @@
+services:
+  zabbix-db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_DB: zabbix
+    volumes:
+      - zabbix_db:/var/lib/postgresql/data
+    networks:
+      zabbix_net:
+        ipv4_address: 172.18.0.4
+
+  zabbix-server:
+    image: zabbix/zabbix-server-pgsql:latest
+    restart: always
+    depends_on:
+      - zabbix-db
+    environment:
+      DB_SERVER_HOST: zabbix-db
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_DB: zabbix
+    ports:
+      - "10051:10051"
+    networks:
+      zabbix_net:
+        ipv4_address: 172.18.0.2
+
+  zabbix-web:
+    image: zabbix/zabbix-web-nginx-pgsql:latest
+    restart: always
+    depends_on:
+      - zabbix-server
+      - zabbix-db
+    environment:
+      DB_SERVER_HOST: zabbix-db
+      POSTGRES_USER: zabbix
+      POSTGRES_PASSWORD: zabbix
+      POSTGRES_DB: zabbix
+      ZBX_SERVER_HOST: zabbix-server
+      PHP_TZ: Africa/Casablanca
+    ports:
+      - "8080:8080"
+    networks:
+      zabbix_net:
+        ipv4_address: 172.18.0.3
+
+networks:
+  zabbix_net:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.18.0.0/16
+          gateway: 172.18.0.1
+
+volumes:
+  zabbix_db:
