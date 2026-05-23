@@ -5,6 +5,11 @@
 ![AWS](https://img.shields.io/badge/AWS-EC2-orange?style=flat-square&logo=amazon-aws)
 ![Linux](https://img.shields.io/badge/Linux-Ubuntu%2024.04-green?style=flat-square&logo=linux)
 ![Windows](https://img.shields.io/badge/Windows-Server-blue?style=flat-square&logo=windows)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-13-blue?style=flat-square&logo=postgresql)
+![Security](https://img.shields.io/badge/Security-Brute%20Force%20Detection-red?style=flat-square&logo=shield)
+![Status](https://img.shields.io/badge/Status-Active-brightgreen?style=flat-square)
+![License](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
+![GitHub](https://img.shields.io/badge/GitHub-Yassine12c-black?style=flat-square&logo=github)
 
 > Projet de monitoring réseau complet avec Zabbix 7.4, déployé sur AWS EC2 via Docker.
 > Inclut la détection en temps réel d'attaques Brute Force SSH (Linux) et RDP (Windows)
